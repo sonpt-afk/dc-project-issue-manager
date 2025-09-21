@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <title>Project Issue Viewer</title>
+    $webResourceManager.requireResourcesForContext("jira.general")
+    $webResourceManager.requireResource("com.atlassian.trainDS.dc-project-issue-viewer:project-viewer-resources")
+    <meta name="decorator" content="atl.general">
+  </head>
+  <body>
+    <div id="react-app-root"></div>
+  </body>
+</html>

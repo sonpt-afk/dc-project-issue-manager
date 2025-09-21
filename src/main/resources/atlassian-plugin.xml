@@ -1,0 +1,38 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="dc-project-issue-viewer"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="dc-project-issue-viewer-resources" name="dc-project-issue-viewer Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="dc-project-issue-viewer.css" location="/css/dc-project-issue-viewer.css"/>
+        <resource type="download" name="dc-project-issue-viewer.js" location="/js/dc-project-issue-viewer.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>dc-project-issue-viewer</context>
+    </web-resource>
+    
+    <web-item key="project-viewer-menu-item" section="system.top.navigation.bar/apps_menu_links" weight="100">
+        <label>Project Issue Viewer</label>
+        <link>/plugins/servlet/project-viewer</link>
+    </web-item>
+
+    <servlet key="project-viewer-servlet" class="com.atlassian.trainDS.servlet.AppServlet">
+        <url-pattern>/project-viewer</url-pattern>
+    </servlet>
+    
+    <web-resource key="project-viewer-resources">
+        <dependency>com.atlassian.auiplugin:aui-page-header</dependency>
+        <resource type="download" name="app-bundle.js" location="js/app-bundle.js"/>
+        <context>jira.general</context> 
+    </web-resource>
+</atlassian-plugin>
