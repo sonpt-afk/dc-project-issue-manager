@@ -130,6 +130,7 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
+                    <ajpPort>8019</ajpPort>
                     <!-- Uncomment to install TestKit backdoor in JIRA. -->
                     <!--
                     <pluginArtifacts>
@@ -168,17 +169,6 @@
                     <includedFeModuleManifests>
                         <includedFeModuleManifest>package.json</includedFeModuleManifest>
                     </includedFeModuleManifests>
-                    <feManifestAssociations>
-                        <feManifestAssociation>
-                            <packageName>@atlassian/dc.dc-project-issue-viewer</packageName>
-                            <manuallyVerifiedEveryFileHasItsDependenciesDeclaredInTheManifest>
-                                <outputDirectoryFiles>
-                                    js/dc-project-issue-viewer.js,
-                                    js/dc-project-issue-viewer-min.js,
-                                </outputDirectoryFiles>
-                            </manuallyVerifiedEveryFileHasItsDependenciesDeclaredInTheManifest>
-                        </feManifestAssociation>
-                    </feManifestAssociations>
                 </configuration>
             </plugin>
             <plugin>

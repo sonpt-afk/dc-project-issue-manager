@@ -1,10 +1,11 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './components/App';
-import '@atlaskit/css-reset';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('react-app-root');
-  const root = createRoot(container);
-  root.render(<App />);
+// Render once AJS is initialized
+AJS.toInit(() => {
+  ReactDOM.render(
+    <App />,
+    document.getElementById('react-app-root')
+  );
 });
