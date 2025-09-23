@@ -6,7 +6,13 @@ import Avatar from "@atlaskit/avatar";
 import "../../css/App.css";
 import ApiUtils from "../../helper/ApiUtils";
 import Spinner from '@atlaskit/spinner';
-
+import TableTree, {
+  Cell,
+  Header,
+  Headers,
+  Row,
+  Rows,
+} from "@atlaskit/table-tree";
 const App = () => {
     const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -31,11 +37,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("🚀 ~ useEffect ~ useEffect:")
     setIsLoadingProjects(true);
     ApiUtils.getProjects()
     .then((data) => {
-      console.log("🚀 ~ .projects ~ data:", data)
       const projectOptions = data.map((p) => ({
         label: p.name,
         value: p.key,
@@ -61,14 +65,13 @@ const App = () => {
     if (!projectId) return;
     setIsLoading(true);
     try {
-      const  issues = await ApiUtils.getIssuesByProject(projectId, 0, 100, true, true);
-      console.log("🚀 ~ fetchAllIssues ~ issues:", issues)
-      // if (!issues) {
-      //   setRows([]);
-      //   return;
-      // }
-      // const tableTreeRows = buildTableTreeRows(issues);
-      // setRows(tableTreeRows);
+      const  {issues} = await ApiUtils.getIssuesByProject(projectId, 0, 100, true, true);
+      if (!issues) {
+        setRows([]);
+        return;
+      }
+      const tableTreeRows = buildTableTreeRows(issues);
+      setRows(tableTreeRows);
     } catch (err) {
       setRows([]);
     } finally {
@@ -83,12 +86,17 @@ const App = () => {
       const rowObject = {
         id: issue.key,
         content: [
-          { id: "type", content: <img src={issue.fields.issuetype.iconUrl} alt={issue.fields.issuetype.name} style={{ height: 24 }} /> },
-          { id: "key", content: issue.key },
-          { id: "summary", content: issue.fields.summary },
+          // { id: "type", content: <img src={issue.fields?.status.iconUrl} alt={issue.fields.status.name} style={{ height: 24 }} /> },
+          { id: "key", content: issue?.key },
+          { id: "summary", content: issue.fields?.summary },
           { id: "status", content: "status"},
-          { id: "assignee", content: issue.fields.assignee ? <div style={{ display: "flex", alignItems: "center" }}><Avatar src={issue.fields.assignee.avatarUrls["24x24"]} size="small" /><span style={{ marginLeft: 8 }}>{issue.fields.assignee.displayName}</span></div> : "Unassigned" },
-          { id: "action", content: <div className="action-cell"><Button className="action-btn" appearance="primary" onClick={() => { openUpdateModal(); setUpdateIssueDefaultData(issue); setUpdateIssueID(issue.id); }}>Update</Button><Button className="action-btn" appearance="danger" onClick={() => { openDeleteModal(); setDeleteIssueID(issue.id); }}>Delete</Button></div> },
+          { id: "assignee", content: issue.fields?.assignee ? <div style={{ display: "flex", alignItems: "center" }}><Avatar src={issue.fields?.assignee?.avatarUrls["24x24"]} size="small" /><span style={{ marginLeft: 8 }}>{issue.fields?.assignee?.displayName}</span></div> : "Unassigned" },
+          { id: "action", content: <div className="action-cell">
+            <Button className="action-btn" appearance="primary" onClick={() => { 
+            openUpdateModal();
+             setUpdateIssueDefaultData(issue); 
+             setUpdateIssueID(issue.id); }}>Update
+             </Button><Button className="action-btn" appearance="danger" onClick={() => { openDeleteModal(); setDeleteIssueID(issue.id); }}>Delete</Button></div> },
         ],
         issue: issue,
         children: [],
@@ -133,13 +141,36 @@ const App = () => {
               </div>
           ): (
             <>
-            
+              {rows.length === 0 ? (<>
+              <div>No issues found.</div>
+            </>) : (
+              <div style={{ marginTop: "16px", minHeight: "400px" }}>
+                  <TableTree>
+                    <Headers>
+                      <Header width={180}>Key</Header>
+                      <Header width={340}>Summary</Header>
+                      <Header width={100}>Status</Header>
+                      <Header width={150}>Assignee</Header>
+                      <Header width={150}>Actions</Header>
+                    </Headers>
+                    <Rows
+                      items={rows}
+                      render={(row) => (
+                        <Row itemId={row.id} items={row.children} hasChildren={row.children.length > 0} shouldExpandOnClick>
+                          {row.content.map((cell) => (<Cell key={cell.id}>{cell.content}</Cell>))}
+                        </Row>
+                      )}
+                    />
+                  </TableTree>
+                </div>
+            )}
             </>
+
           )}
     </div>
 
       )}
-      hi son
+      {isOpenUpdateModal ? <UpdateModal /> : null}
     </div>
   );
 };
