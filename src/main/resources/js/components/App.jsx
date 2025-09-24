@@ -13,21 +13,23 @@ import TableTree, {
   Row,
   Rows,
 } from "@atlaskit/table-tree";
+import UpdateModal from './UpdateModal';
+import DeleteModal from './DeleteModal';
 const App = () => {
     const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
-  const [isOpenDelModal, setIsOpenDelModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [updateIssueDefaultData, setUpdateIssueDefaultData] = useState(null);
   const [deleteIssueID, setDeleteIssueID] = useState(null);
   const [updateIssueID, setUpdateIssueID] = useState(null);
 
-  const openDeleteModal = () => setIsOpenDelModal(true);
+  const openDeleteModal = () => setIsOpenDeleteModal(true);
   const openUpdateModal = () => setIsOpenUpdateModal(true);
-  const closeDeleteModal = () => setIsOpenDelModal(false);
+  const closeDeleteModal = () => setIsOpenDeleteModal(false);
   const closeUpdateModal = () => setIsOpenUpdateModal(false);
 
    const handleDeleteOrUpdateSuccess = () => {
@@ -66,6 +68,8 @@ const App = () => {
     setIsLoading(true);
     try {
       const  {issues} = await ApiUtils.getIssuesByProject(projectId, 0, 100, true, true);
+      console.log('allIssues',issues)
+
       if (!issues) {
         setRows([]);
         return;
@@ -89,7 +93,7 @@ const App = () => {
           // { id: "type", content: <img src={issue.fields?.status.iconUrl} alt={issue.fields.status.name} style={{ height: 24 }} /> },
           { id: "key", content: issue?.key },
           { id: "summary", content: issue.fields?.summary },
-          { id: "status", content: "status"},
+          { id: "status", content: issue.fields?.status?.name},
           { id: "assignee", content: issue.fields?.assignee ? <div style={{ display: "flex", alignItems: "center" }}><Avatar src={issue.fields?.assignee?.avatarUrls["24x24"]} size="small" /><span style={{ marginLeft: 8 }}>{issue.fields?.assignee?.displayName}</span></div> : "Unassigned" },
           { id: "action", content: <div className="action-cell">
             <Button className="action-btn" appearance="primary" onClick={() => { 
@@ -148,8 +152,8 @@ const App = () => {
                   <TableTree>
                     <Headers>
                       <Header width={180}>Key</Header>
-                      <Header width={340}>Summary</Header>
-                      <Header width={100}>Status</Header>
+                      <Header width={300}>Summary</Header>
+                      <Header width={140}>Status</Header>
                       <Header width={150}>Assignee</Header>
                       <Header width={150}>Actions</Header>
                     </Headers>
@@ -170,7 +174,8 @@ const App = () => {
     </div>
 
       )}
-      {isOpenUpdateModal ? <UpdateModal /> : null}
+      {isOpenUpdateModal ? <UpdateModal onUpdateSuccess={handleDeleteOrUpdateSuccess} selectedProject={selectedProject} updateIssueDefaultData={updateIssueDefaultData} closeUpdateModal={closeUpdateModal}/> : null}
+      {isOpenDeleteModal ? <DeleteModal onDeleteSuccess={handleDeleteOrUpdateSuccess} deleteIssueID={deleteIssueID} closeDeleteModal={closeDeleteModal}/> : null}
     </div>
   );
 };

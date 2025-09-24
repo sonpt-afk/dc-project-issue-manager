@@ -109,6 +109,15 @@ static updateIssue = async (issueId, updateData) => {
 	return result; // axios data (thường rỗng với 204)
 }
 
+static getTransitions = async (issueId) => {
+  return await apiCall(`${API_PATH}/issue/${issueId}/transitions`);
+}
+
+static transitionIssue = async (issueId, transitionData) => {
+  const result = await apiCall(`${API_PATH}/issue/${issueId}/transitions`, 'POST', transitionData);
+  return result;
+}
+
     // Sửa deleteIssue:
 static deleteIssue = async (issueId) => {
 	await apiCall(`${API_PATH}/issue/${issueId}`, 'DELETE');
@@ -123,8 +132,19 @@ static getListIssueType = async () => {
     // Sửa getAssignableUser:
 static getAssignableUser = async (projectKey) => {
 	if (!projectKey) return [];
-	return await apiCall(`${API_PATH}/user/assignable/multiProjectSearch?project=${projectKey}`);
+	return await apiCall(`${API_PATH}/user/assignable/multiProjectSearch?projectKeys=${projectKey}`);
 };
+
+static getIssuesStatus= async () => {
+
+  const response = await apiCall(
+    `${API_PATH}/status`
+  );
+  
+  console.log("🚀 ~ ApiUtils ~ response:", response)
+  
+  return response || [];
+}
 }
 
 export default ApiUtils

@@ -27,9 +27,9 @@
     </web-item> -->
 
 <web-item key="release-page" i18n-name-key="version.release" section="jira.project.sidebar.plugins.navigation" weight="300">
-            <label>Project Issue Viewer</label>
-
+    <label>Project Issue Viewer</label>
     <link>/projects/$pathEncodedProjectKey?selectedItem=com.atlassian.trainDS.dc-project-issue-viewer:release-page</link>
+    <param name="iconUrl" value="https://randomuser.me/api/portraits/men/75.jpg"/>
     <param name="iconClass" value="aui-icon-large icon-sidebar-release"/>
 </web-item>
  
