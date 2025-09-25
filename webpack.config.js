@@ -2,9 +2,12 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/main/resources/js/app.js',
+    entry: {
+        app: './src/main/resources/js/app.js',
+        'project-settings-bundle': './src/main/resources/js/components/SettingsPage.jsx'
+    },
     output: {
-        filename: 'app-bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'target/classes/js')
     },
     module: {

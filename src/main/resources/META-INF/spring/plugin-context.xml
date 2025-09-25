@@ -7,4 +7,10 @@
         http://www.atlassian.com/schema/atlassian-scanner
         http://www.atlassian.com/schema/atlassian-scanner/atlassian-scanner.xsd">
     <atlassian-scanner:scan-indexes/>
+
+    <bean id="projectSettingsServlet" class="com.atlassian.trainDS.servlet.ProjectSettingsServlet">
+        <constructor-arg ref="userManager"/>
+        <constructor-arg ref="pluginSettingsFactory"/>
+        <constructor-arg ref="templateRenderer"/>
+    </bean>
 </beans>

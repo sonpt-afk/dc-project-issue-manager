@@ -51,4 +51,23 @@
         <resource type="download" name="app-bundle.js" location="js/app-bundle.js"/>
         <context>jira.general</context> 
     </web-resource>
+
+    <!-- Project Settings Web Item -->
+    <web-item key="project-settings-web-item" section="jira.project.sidebar.plugins.settings" weight="100">
+        <label>Project App Settings</label>
+        <link>/plugins/servlet/project-settings?projectKey=${projectKey}</link>
+        <tooltip>Configure settings for the Project Issue Viewer app.</tooltip>
+    </web-item>
+
+    <!-- Project Settings Servlet -->
+    <servlet key="project-settings-servlet" class="com.atlassian.trainDS.servlet.ProjectSettingsServlet">
+        <url-pattern>/project-settings</url-pattern>
+    </servlet>
+
+    <!-- Project Settings Web Resources -->
+    <web-resource key="project-settings-resources" name="Project Settings Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="project-settings-bundle.js" location="js/project-settings-bundle.js"/>
+        <context>jira.general</context>
+    </web-resource>
 </atlassian-plugin>

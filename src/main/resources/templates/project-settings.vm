@@ -1,0 +1,10 @@
+<html>
+<head>
+    <title>Project Settings</title>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResource("com.atlassian.trainDS.dc-project-issue-viewer:project-settings-resources")
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

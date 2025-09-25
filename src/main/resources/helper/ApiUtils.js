@@ -145,6 +145,17 @@ static getIssuesStatus= async () => {
   
   return response || [];
 }
+
 }
+
+export const getProjectKey = () => {
+    const metaTag = document.querySelector('meta[name="projectKey"]');
+    return metaTag ? metaTag.content : '';
+};
+
+export const getIsEnabled = () => {
+    const metaTag = document.querySelector('meta[name="isEnabled"]');
+    return metaTag ? metaTag.content === 'true' : false;
+};
 
 export default ApiUtils
