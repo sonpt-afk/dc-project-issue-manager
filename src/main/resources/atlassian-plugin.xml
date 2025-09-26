@@ -46,6 +46,15 @@
         <url-pattern>/project-viewer</url-pattern>
     </servlet>
     
+    <servlet key="project-viewer-config-servlet" class="com.atlassian.trainDS.servlet.ConfigServlet">
+      <url-pattern>/admin/project-viewer-config</url-pattern>
+    </servlet>
+
+    <web-item key="project-viewer-menu-project" section="jira.project.sidebar.plugins.navigation" weight="400">
+  <label>Project Viewer Config (Project Sidebar)</label>
+  <link>/plugins/servlet/admin/project-viewer-config</link>
+</web-item>
+
     <web-resource key="project-viewer-resources">
         <dependency>com.atlassian.auiplugin:aui-page-header</dependency>
         <resource type="download" name="app-bundle.js" location="js/app-bundle.js"/>
