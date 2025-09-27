@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Access Denied</title>
+    <meta name="decorator" content="atl.general">
+</head>
+<body>
+    <div class="aui-page-header">
+        <div class="aui-page-header-main">
+            <h1>Access Denied</h1>
+        </div>
+    </div>
+    <div class="aui-message aui-message-error">
+        <p class="title">
+            <strong>You do not have permission to view this page.</strong>
+        </p>
+        <p>Please contact your Jira administrator if you believe this is an error.</p>
+    </div>
+</body>
+</html>

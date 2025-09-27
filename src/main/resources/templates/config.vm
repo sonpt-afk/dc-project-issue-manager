@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Project Viewer Configuration</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+    <div class="aui-page-header">
+        <div class="aui-page-header-main">
+            <h1>Project Viewer Configuration</h1>
+        </div>
+    </div>
+
+    <div class="aui-tabs horizontal-tabs">
+        <ul class="tabs-menu">
+            <li class="menu-item active-tab"><a href="#tab-config">Access Permissions</a></li>
+        </ul>
+        <div class="tabs-pane active-pane" id="tab-config">
+            <form class="aui" action="" method="post">
+                <div class="field-group">
+                    <label for="allowedGroups">Allowed Groups<span class="aui-icon icon-required">Required</span></label>
+                    <input class="text medium-long-field" type="text" id="allowedGroups" name="allowedGroups" value="$!allowedGroups">
+                    <div class="description">Enter a comma-separated list of Jira groups that are allowed to access the Project Viewer. Leave empty to allow all users.</div>
+                </div>
+                <div class="buttons">
+                    <input class="aui-button aui-button-primary" type="submit" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
