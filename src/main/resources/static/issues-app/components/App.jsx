@@ -3,8 +3,8 @@ import Button from '@atlaskit/button/new';
 import { useState, useEffect } from 'react';
 import Select from "@atlaskit/select";
 import Avatar from "@atlaskit/avatar";
-import "../../css/App.css";
-import ApiUtils from "../../helper/ApiUtils";
+import "../../../css/App.css";
+import ApiUtils from "../../../helper/ApiUtils";
 import Spinner from '@atlaskit/spinner';
 import TableTree, {
   Cell,

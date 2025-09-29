@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Issues App Settings</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="projectKey" content="$action.projectKey" />
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="issues-app-settings-tab"/>
+</head>
+<body>
+    <div>
+    <h2>Issues App Settings for Project: $action.projectKey</h2>
+
+#if ($action.isEnabled)
+    <p>The Issues App is currently <strong>enabled</strong> for this project.</p>
+    <form action="${req.contextPath}/secure/issues-app-settings.jspa" method="GET" style="margin-top:20px">
+        <input type="hidden" name="projectKey" value="$action.projectKey">
+        <input type="hidden" name="action" value="disable">
+        <button class="aui-button aui-button-primary" type="submit">Disable App</button>
+    </form>
+#else
+    <p>The Issues App is currently <strong>disabled</strong> for this project.</p>
+    <form action="${req.contextPath}/secure/issues-app-settings.jspa" method="GET" style="margin-top:20px">
+        <input type="hidden" name="projectKey" value="$action.projectKey">
+        <input type="hidden" name="action" value="enable">
+        <button class="aui-button aui-button-primary" type="submit">Enable App</button>
+    </form>
+    </div>
+#end
+</body>
+</html>

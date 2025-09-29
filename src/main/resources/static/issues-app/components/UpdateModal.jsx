@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import ApiUtils from "../../helper/ApiUtils";
+import ApiUtils from "../../../helper/ApiUtils";
 import Modal, {
   ModalBody,
   ModalFooter,
